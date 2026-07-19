@@ -1,4 +1,4 @@
-gradio
-numpy
-opencv-python-headless
-Pillow
+gradio==6.20.0
+numpy==2.4.6
+opencv-python-headless==5.0.0.93
+Pillow==12.3.0

@@ -21,3 +21,10 @@ python -m pip install -r requirements-dev.txt
 python -m pytest
 python app.py
 ```
+
+## 模块边界
+
+- `load_image.py` 与 `save_result.py` 分别负责读取和输出，不放置调色算法。
+- `lab_transfer.py` 只负责 Lab 统计映射，参数编排统一通过 `core.py`。
+- `ui/` 内页面构建、生成动作、重置动作必须保持独立。
+- 用户图片只能存在于内存、Gradio 临时目录或进程级临时结果目录，退出时清理。
