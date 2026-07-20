@@ -14,8 +14,8 @@ def build_interface() -> gr.Blocks:
         with gr.Row():
             source = gr.Image(label="原图", type="filepath", sources=["upload"])
             reference = gr.Image(label="参考图", type="filepath", sources=["upload"])
-        strength = gr.Slider(0.0, 1.0, value=0.8, step=0.05, label="色彩迁移强度")
-        luminance = gr.Slider(0.0, 1.0, value=0.7, step=0.05, label="亮度保护")
+        strength = gr.Slider(0.0, 1.0, value=1.0, step=0.05, label="色彩迁移强度")
+        luminance = gr.Slider(0.0, 1.0, value=0.0, step=0.05, label="亮度保护")
         saturation = gr.Slider(0.0, 2.0, value=1.0, step=0.05, label="饱和度")
         with gr.Row():
             generate = gr.Button("生成结果", variant="primary")

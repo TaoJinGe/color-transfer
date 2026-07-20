@@ -35,4 +35,4 @@ def test_generate_requires_both_images(source, reference, message) -> None:
 
 
 def test_reset_restores_defaults() -> None:
-    assert reset_inputs() == (None, None, 0.8, 0.7, 1.0, None, None)
+    assert reset_inputs() == (None, None, 1.0, 0.0, 1.0, None, None)

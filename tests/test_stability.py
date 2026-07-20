@@ -9,7 +9,7 @@ import pytest
 from PIL import Image
 
 import color_transfer.load_image as load_module
-from color_transfer.core import transfer_color_lab
+from color_transfer.distribution_transfer import transfer_distribution
 from color_transfer.image_io import ImageLoadError
 
 
@@ -27,13 +27,7 @@ def test_ten_consecutive_transfers_are_stable() -> None:
     source = generator.integers(0, 256, (180, 320, 3), dtype=np.uint8)
     reference = generator.integers(0, 256, (120, 200, 3), dtype=np.uint8)
     for index in range(10):
-        result = transfer_color_lab(
-            source,
-            reference,
-            strength=index / 9,
-            luminance_protection=0.7,
-            saturation=1.0,
-        )
+        result = transfer_distribution(source, reference, iterations=1, seed=index)
         assert result.shape == source.shape
         assert result.dtype == np.uint8
 
@@ -44,7 +38,7 @@ def test_repeated_transfers_do_not_retain_python_memory() -> None:
     tracemalloc.start()
     baseline = tracemalloc.take_snapshot()
     for _ in range(10):
-        transfer_color_lab(source, reference)
+        transfer_distribution(source, reference, iterations=1)
     gc.collect()
     final = tracemalloc.take_snapshot()
     growth = sum(stat.size_diff for stat in final.compare_to(baseline, "filename"))

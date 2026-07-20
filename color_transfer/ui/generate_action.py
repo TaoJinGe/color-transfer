@@ -4,7 +4,7 @@ from pathlib import Path
 
 import gradio as gr
 
-from ..core import transfer_color_lab
+from ..core import transfer_color_distribution
 from ..image_io import ImageLoadError, ImageSaveError, load_image, save_result
 from ..result_store import result_path
 
@@ -24,7 +24,7 @@ def generate_result(
     try:
         source = load_image(source_path)
         reference = load_image(reference_path)
-        result = transfer_color_lab(
+        result = transfer_color_distribution(
             source.rgb,
             reference.rgb,
             strength,
