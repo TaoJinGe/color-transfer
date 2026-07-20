@@ -4,4 +4,4 @@
 def test_package_can_be_imported() -> None:
     import color_transfer
 
-    assert color_transfer.__version__ == "1.1.0"
+    assert color_transfer.__version__ == "1.2.0"
