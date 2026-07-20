@@ -4,7 +4,7 @@ import os
 
 os.environ.setdefault("GRADIO_ANALYTICS_ENABLED", "False")
 
-from color_transfer.ui.build_interface import build_interface
+from color_transfer.ui.build_interface import PAGE_CSS, build_interface
 
 
 def main() -> None:
@@ -16,6 +16,7 @@ def main() -> None:
         share=False,
         inbrowser=True,
         show_error=False,
+        css=PAGE_CSS,
     )
 
 
