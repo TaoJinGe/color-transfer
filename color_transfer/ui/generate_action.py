@@ -15,6 +15,7 @@ def generate_result(
     strength: float,
     luminance_protection: float,
     saturation: float,
+    output_format: str = "PNG",
 ) -> tuple[str, str]:
     """读取两张图片并生成可预览、可下载的结果。"""
     if not source_path:
@@ -31,7 +32,12 @@ def generate_result(
             luminance_protection,
             saturation,
         )
-        saved = save_result(result, source.alpha, result_path())
+        saved = save_result(
+            result,
+            source.alpha,
+            result_path(output_format),
+            output_format,
+        )
     except (ImageLoadError, ImageSaveError, ValueError) as exc:
         raise gr.Error(str(exc)) from exc
     except MemoryError as exc:

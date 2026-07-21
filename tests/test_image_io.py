@@ -59,6 +59,16 @@ def test_save_rgb_as_png(tmp_path) -> None:
         assert saved.size == (5, 3)
 
 
+def test_save_alpha_image_as_opaque_jpg(tmp_path) -> None:
+    rgb = np.full((3, 5, 3), 42, dtype=np.uint8)
+    alpha = np.zeros((3, 5), dtype=np.uint8)
+    output = save_result(rgb, alpha, tmp_path / "result.jpg", "JPG")
+    with Image.open(output) as saved:
+        assert saved.format == "JPEG"
+        assert saved.mode == "RGB"
+        assert saved.size == (5, 3)
+
+
 @pytest.mark.parametrize("payload", [b"broken", b"", None])
 def test_reject_invalid_images(payload) -> None:
     value = None if payload is None else BytesIO(payload)

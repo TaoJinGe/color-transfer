@@ -37,13 +37,14 @@ def build_interface() -> gr.Blocks:
             strength = gr.Slider(0.0, 1.0, value=1.0, step=0.05, label="迁移强度")
             luminance = gr.Slider(0.0, 1.0, value=0.0, step=0.05, label="亮度保护")
             saturation = gr.Slider(0.0, 2.0, value=1.0, step=0.05, label="饱和度")
+            output_format = gr.Radio(["PNG", "JPG"], value="PNG", label="输出格式")
         with gr.Row(elem_classes="compact-actions"):
             generate = gr.Button("生成结果", variant="primary", scale=3)
             reset = gr.Button("重置", scale=1)
-            download = gr.DownloadButton("下载结果 PNG", variant="secondary", scale=2)
+            download = gr.DownloadButton("下载结果", variant="secondary", scale=2)
         generate.click(
             fn=generate_result,
-            inputs=[source, reference, strength, luminance, saturation],
+            inputs=[source, reference, strength, luminance, saturation, output_format],
             outputs=[result_preview, download],
             show_progress="full",
         )

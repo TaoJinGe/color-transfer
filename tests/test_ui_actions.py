@@ -25,6 +25,19 @@ def test_generate_returns_preview_and_download(tmp_path) -> None:
         assert np.asarray(result)[0, 0, 3] == 91
 
 
+def test_generate_can_output_jpg_without_alpha(tmp_path) -> None:
+    source = tmp_path / "source.png"
+    reference = tmp_path / "reference.jpg"
+    _save(source, (20, 60, 100, 91), "RGBA")
+    _save(reference, (180, 90, 30))
+    preview, download = generate_result(source, reference, 0.8, 0.7, 1.0, "JPG")
+    assert preview == download
+    assert download.endswith(".jpg")
+    with Image.open(download) as result:
+        assert result.format == "JPEG"
+        assert result.mode == "RGB"
+
+
 @pytest.mark.parametrize(
     ("source", "reference", "message"),
     [(None, "reference.png", "请先上传原图"), ("source.png", None, "请先上传参考图")],
